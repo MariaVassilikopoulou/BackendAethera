@@ -1,0 +1,6 @@
+@Aethera_HostAddress = http://localhost:5142
+
+GET {{Aethera_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
