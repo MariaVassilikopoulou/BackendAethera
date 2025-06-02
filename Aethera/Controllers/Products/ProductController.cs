@@ -2,17 +2,20 @@
 using Aethera.Interfaces;
 using Aethera.Models;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Aethera.Controllers.Products
 {
+  
     [ApiController]
     [Route("api/[controller]")]
-    public class ProductController : ControllerBase
+    [Authorize]
+    public class ProductsController : ControllerBase
     {
         private readonly IGenericRepository<Product> _repository;
         private readonly IMapper _mapper;
-        public ProductController(IGenericRepository<Product> repository, IMapper mapper)
+        public ProductsController(IGenericRepository<Product> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;

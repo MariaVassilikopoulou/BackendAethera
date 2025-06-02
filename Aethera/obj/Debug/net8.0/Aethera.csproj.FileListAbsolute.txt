@@ -66,3 +66,12 @@ C:\Users\vasil\source\repos\Aethera\Aethera\obj\Debug\net8.0\Aethera.pdb
 C:\Users\vasil\source\repos\Aethera\Aethera\obj\Debug\net8.0\Aethera.genruntimeconfig.cache
 C:\Users\vasil\source\repos\Aethera\Aethera\obj\Debug\net8.0\ref\Aethera.dll
 C:\Users\vasil\source\repos\Aethera\Aethera\bin\Debug\net8.0\AutoMapper.dll
+C:\Users\vasil\source\repos\Aethera\Aethera\obj\Debug\net8.0\Aethera.sourcelink.json
+C:\Users\vasil\source\repos\Aethera\Aethera\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\vasil\source\repos\Aethera\Aethera\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\vasil\source\repos\Aethera\Aethera\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\vasil\source\repos\Aethera\Aethera\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\vasil\source\repos\Aethera\Aethera\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\vasil\source\repos\Aethera\Aethera\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\vasil\source\repos\Aethera\Aethera\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\vasil\source\repos\Aethera\Aethera\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll

@@ -5,10 +5,10 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/Product": {
+    "/api/Products": {
       "get": {
         "tags": [
-          "Product"
+          "Products"
         ],
         "responses": {
           "200": {
@@ -18,7 +18,7 @@
       },
       "post": {
         "tags": [
-          "Product"
+          "Products"
         ],
         "requestBody": {
           "content": {
@@ -46,10 +46,10 @@
         }
       }
     },
-    "/api/Product/{id}": {
+    "/api/Products/{id}": {
       "get": {
         "tags": [
-          "Product"
+          "Products"
         ],
         "parameters": [
           {
@@ -69,7 +69,7 @@
       },
       "put": {
         "tags": [
-          "Product"
+          "Products"
         ],
         "parameters": [
           {
@@ -108,7 +108,7 @@
       },
       "delete": {
         "tags": [
-          "Product"
+          "Products"
         ],
         "parameters": [
           {
@@ -166,6 +166,19 @@
         },
         "additionalProperties": false
       }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "apiKey",
+        "description": "JWT Authorization header using the Bearer scheme. Example: 'Bearer {token}'",
+        "name": "Authorization",
+        "in": "header"
+      }
     }
-  }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
 }
