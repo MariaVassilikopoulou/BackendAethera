@@ -22,7 +22,10 @@ namespace Aethera.Models
         public decimal Price { get; set; }
 
         [JsonPropertyName("category")]
-        public string Category { get; set; } = "perfumes"; 
+        public string Category { get; set; } = "perfumes";
+        [JsonPropertyName("imageUrl")]
+        public string ImageUrl { get; set; } = string.Empty;
+
     }
 }
 

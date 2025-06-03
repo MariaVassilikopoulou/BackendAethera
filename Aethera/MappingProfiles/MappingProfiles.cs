@@ -1,4 +1,5 @@
 ﻿using Aethera.Dtos;
+using Aethera.Dtos.Product;
 using Aethera.Models;
 using AutoMapper;
 
@@ -21,7 +22,11 @@ namespace Aethera.MappingProfiles
                 // Optional: back to DTOs if needed
                 CreateMap<Product, CreateProductDto>().ReverseMap();
                 CreateMap<Product, UpdateProductDto>().ReverseMap();
-            }
+
+
+                CreateMap<CartItemDto, CartItem>().ReverseMap();
+                CreateMap<CartDto, Cart>().ReverseMap();
+        }
         }
     }
 

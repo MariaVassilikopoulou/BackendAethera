@@ -128,9 +128,32 @@ namespace Aethera.Repositories
 
                 return results;
             }
+
+
+        public async Task<T> UpsertAsync(T entity)
+        {
+            try
+            {
+                var response = await _container.UpsertItemAsync(
+                    entity,
+                    new PartitionKey(entity.PartitionKey));
+
+                return response.Resource;
+            }
+            catch (CosmosException ex)
+            {
+                _logger.LogError(ex,
+                    "Cosmos failed to upsert item. Status={StatusCode} Response={ErrorMessage}",
+                    ex.StatusCode, ex.Message);
+                throw;
+            }
         }
 
 
 
     }
+
+
+
+}
 

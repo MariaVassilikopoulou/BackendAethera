@@ -1,4 +1,4 @@
-﻿using Aethera.Dtos;
+﻿using Aethera.Dtos.Product;
 using Aethera.Interfaces;
 using Aethera.Models;
 using AutoMapper;
