@@ -21,7 +21,7 @@ namespace Aethera.Repositories
 
                 var containerName = Activator.CreateInstance<T>().ContainerName;
 
-                _container = client
+            _container = client
                     .GetDatabase(settings.DatabaseName)
                     .GetContainer(containerName);
             }

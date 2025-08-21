@@ -51,19 +51,20 @@ namespace Aethera.Dependencies
         {
             var authority = config["AzureEntraExternalID:Authority"];
             var clientId = config["AzureEntraExternalID:ClientId"];
+            var audience = config["AzureEntraExternalID:Audience"];
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
                     options.Authority = authority;
-                    options.Audience = clientId;
+                    options.Audience = audience;
 
                     options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
                     {
                         ValidateIssuer = true,
                         ValidIssuer = authority,
                         ValidateAudience = true,
-                        ValidAudience = clientId,
+                        ValidAudience = audience,
                         ValidateLifetime = true
                     };
                 });
