@@ -1,28 +1,48 @@
-name: Build and deploy ASP.NET Core app to Azure Web App
+name: Build and Deploy ASP.NET Core to Azure Web App
 
+# Trigger the workflow on push to main branch
 on:
   push:
     branches:
-      - main   # replace with your branch name if needed
+      - main   # replace with your branch if your main branch has a different name
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
+      # Step 1: Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # Step 2: Setup .NET SDK
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '8.0.x'  # use your project .NET version
+          dotnet-version: '8.0.x'  # use your .NET version
 
-      - name: Publish .NET app
-        run: dotnet publish -c Release -o ${{github.workspace}}/publish
+      # Step 3: Restore dependencies
+      - name: Restore dependencies
+        run: dotnet restore
 
+      # Step 4: Build the project
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      # Step 5: Publish the project
+      - name: Publish
+        run: dotnet publish --configuration Release --output publish
+
+      # Step 6: Login to Azure
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # Step 7: Deploy to Azure Web App
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'aetheraperfumes'  # your Azure Web App name
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE }}
-          package: ${{github.workspace}}/publish
+          app-name: aetheraperfumes       # your App Service name
+          package: ./publish              # folder from dotnet publish
+                     
