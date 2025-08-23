@@ -57,14 +57,18 @@ namespace Aethera.Dependencies
                 .AddJwtBearer(options =>
                 {
                     options.Authority = authority;
-                    options.Audience = audience;
+                    //options.Audience = audience;
 
                     options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
                     {
                         ValidateIssuer = true,
                         ValidIssuer = authority,
                         ValidateAudience = true,
-                        ValidAudience = audience,
+                        ValidAudiences = new[]
+                {
+                    audience, 
+                    $"api://{audience}" 
+                },
                         ValidateLifetime = true
                     };
                 });
