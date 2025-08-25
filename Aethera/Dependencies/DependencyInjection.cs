@@ -52,6 +52,14 @@ namespace Aethera.Dependencies
             var authority = config["AzureEntraExternalID:Authority"];
             var clientId = config["AzureEntraExternalID:ClientId"];
             var audience = config["AzureEntraExternalID:Audience"];
+            // Add logging to see what values we're getting
+            var serviceProvider = services.BuildServiceProvider();
+
+            var logger = serviceProvider.GetService<ILogger<Program>>();
+            logger?.LogInformation($"🔍 Authentication Configuration:");
+            logger?.LogInformation($"  Authority: {authority}");
+            logger?.LogInformation($"  ClientId: {clientId}");
+            logger?.LogInformation($"  Audience: {audience}");
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -66,10 +74,14 @@ namespace Aethera.Dependencies
                         ValidateAudience = true,
                         ValidAudiences = new[]
                 {
-                    audience, 
-                    $"api://{audience}" 
+                    audience,
+                    clientId 
+                    //$"api://{audience}"
                 },
-                        ValidateLifetime = true
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ClockSkew = TimeSpan.FromMinutes(5)
+
                     };
                 });
 
@@ -102,7 +114,7 @@ namespace Aethera.Dependencies
                                 Id = "Bearer"
                             }
                         },
-                        new string[] {}
+                        new string[] { "api://297ac375-6408-43f6-bac5-e72e2c44b313/Aethera_access_api" }
                     }
                 });
             });
@@ -111,3 +123,6 @@ namespace Aethera.Dependencies
         }
     }
 }
+
+
+

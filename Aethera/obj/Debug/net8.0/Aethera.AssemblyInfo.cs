@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Aethera")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cf8157c765ab3d5855e08d6e4ed29abb50fb8685")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+87fcdf44c83dd3557e3ac1b437dbe14c11619f9a")]
 [assembly: System.Reflection.AssemblyProductAttribute("Aethera")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Aethera")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
