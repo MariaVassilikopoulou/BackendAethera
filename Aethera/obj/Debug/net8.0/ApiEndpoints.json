@@ -11,35 +11,9 @@
   },
   {
     "ContainingType": "Aethera.Controllers.CartController",
-    "Method": "Get",
+    "Method": "GetMyCart",
     "RelativePath": "api/Cart",
     "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Aethera.Controllers.CartController",
-    "Method": "Update",
-    "RelativePath": "api/Cart",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "Aethera.Dtos.CartDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Aethera.Controllers.CartController",
-    "Method": "Clear",
-    "RelativePath": "api/Cart",
-    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
@@ -63,9 +37,25 @@
   },
   {
     "ContainingType": "Aethera.Controllers.CartController",
-    "Method": "GetMyCart",
-    "RelativePath": "api/Cart/me/cart",
-    "HttpMethod": "GET",
+    "Method": "Update",
+    "RelativePath": "api/Cart",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Aethera.Dtos.CartDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Aethera.Controllers.CartController",
+    "Method": "Clear",
+    "RelativePath": "api/Cart",
+    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [],

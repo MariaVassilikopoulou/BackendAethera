@@ -25,9 +25,13 @@ namespace Aethera.MappingProfiles
 
 
                 CreateMap<CartItemDto, CartItem>().ReverseMap();
-                CreateMap<CartDto, Cart>().ReverseMap();
+            // CreateMap<CartDto, Cart>().ReverseMap();
+            CreateMap<CartDto, Cart>()
+                .ForMember(dest => dest.UserId, opt => opt.Ignore()) // always set from token
+                .ReverseMap();
+
         }
-        }
+    }
     }
 
 
