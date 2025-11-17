@@ -54,3 +54,8 @@ These are taken from **Azure Key Vault**, not from `appsettings.json`.
 - JWT Authentication
 - Generic Repository Pattern
 
+## [📘 What I Focused On and Learned]
+Built a cloud-ready ASP.NET Core webshop backend. 
+Focused on JWT auth with Azure Entra, Cosmos DB with a repository pattern, Key Vault secrets, AutoMapper, Swagger, and CI/CD to Azure.
+Learned secure Azure connections, clean dependency injection, scalable API structure, and proper error handling.
+
