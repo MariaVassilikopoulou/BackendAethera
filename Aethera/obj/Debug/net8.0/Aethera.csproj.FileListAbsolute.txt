@@ -75,3 +75,10 @@ C:\Users\vasil\source\repos\Aethera\Aethera\bin\Debug\net8.0\Microsoft.IdentityM
 C:\Users\vasil\source\repos\Aethera\Aethera\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\vasil\source\repos\Aethera\Aethera\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\vasil\source\repos\Aethera\Aethera\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\vasil\source\repos\Aethera\Aethera\bin\Debug\net8.0\Azure.Identity.dll
+C:\Users\vasil\source\repos\Aethera\Aethera\bin\Debug\net8.0\Azure.Security.KeyVault.Secrets.dll
+C:\Users\vasil\source\repos\Aethera\Aethera\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\vasil\source\repos\Aethera\Aethera\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\vasil\source\repos\Aethera\Aethera\bin\Debug\net8.0\Microsoft.Identity.Client.dll
+C:\Users\vasil\source\repos\Aethera\Aethera\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\vasil\source\repos\Aethera\Aethera\bin\Debug\net8.0\Azure.Extensions.AspNetCore.Configuration.Secrets.dll

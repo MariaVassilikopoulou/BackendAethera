@@ -7,13 +7,14 @@ using System.Text.Json;
 using Aethera.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.Logging; 
+using Microsoft.IdentityModel.Tokens; 
 
 namespace Aethera.Dependencies
 {
     public static class DependencyInjection
     {
-
-
+        
         public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration config)
         {
             services.Configure<CosmosDbSettings>(config.GetSection("CosmosDbSettings"));
@@ -21,6 +22,26 @@ namespace Aethera.Dependencies
             services.AddSingleton(s =>
             {
                 var options = s.GetRequiredService<IOptions<CosmosDbSettings>>().Value;
+                
+                var logger = s.GetRequiredService<ILogger<CosmosClient>>();
+
+                
+                if (string.IsNullOrEmpty(options.AccountEndpoint))
+                {
+                    logger.LogError("CosmosDbSettings:AccountEndpoint is null or empty.");
+                    throw new InvalidOperationException("CosmosDbSettings:AccountEndpoint is missing. Please check the secret 'CosmosDbSettings--AccountEndpoint' in Azure Key Vault.");
+                }
+
+                if (string.IsNullOrEmpty(options.AccountKey))
+                {
+                    logger.LogError("CosmosDbSettings:AccountKey is null or empty.");
+                    
+                    throw new InvalidOperationException("CosmosDbSettings:AccountKey (authKeyOrResourceToken) is missing. Please check the secret 'CosmosDbSettings--AccountKey' in Azure Key Vault.");
+                }
+
+                logger.LogInformation($" Connecting to Cosmos DB: {options.AccountEndpoint} (Database: {options.DatabaseName})");
+
+                
 
                 var jsonOptions = new JsonSerializerOptions
                 {
@@ -28,8 +49,10 @@ namespace Aethera.Dependencies
                     DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
                 };
 
+                
                 var clientOptions = new CosmosClientOptions
                 {
+                    
                     Serializer = new SystemTextJsonCosmosSerializer(jsonOptions),
                 };
 
@@ -49,35 +72,38 @@ namespace Aethera.Dependencies
 
         public static IServiceCollection AddAuthenticationWithJwt(this IServiceCollection services, IConfiguration config)
         {
-            var authority = config["AzureEntraExternalID:Authority"];
-            var clientId = config["AzureEntraExternalID:ClientId"];
-            var audience = config["AzureEntraExternalID:Audience"];
-            // Add logging to see what values we're getting
+            var authority = config["AzureEntraExternalID-Authority"];
+            var clientId = config["AzureEntraExternalID-ClientId"];
+            var audience = config["AzureEntraExternalID-Audience"];
+
+            
             var serviceProvider = services.BuildServiceProvider();
 
+           
             var logger = serviceProvider.GetService<ILogger<Program>>();
-            logger?.LogInformation($"🔍 Authentication Configuration:");
-            logger?.LogInformation($"  Authority: {authority}");
-            logger?.LogInformation($"  ClientId: {clientId}");
-            logger?.LogInformation($"  Audience: {audience}");
+            //logger?.LogInformation($"Authentication Configuration:");
+            //logger?.LogInformation($"  Authority: {authority}");
+            //logger?.LogInformation($"  ClientId: {clientId}");
+            //logger?.LogInformation($"  Audience: {audience}");
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
+                   
                     options.Authority = authority;
-                    //options.Audience = audience;
 
-                    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                   
+
+                    options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = true,
-                        ValidIssuer = authority,
                         ValidateAudience = true,
                         ValidAudiences = new[]
-                {
-                    audience,
-                    clientId 
-                    //$"api://{audience}"
-                },
+                        {
+                            audience,
+                            clientId  
+                            //$"api://{audience}"
+                        },
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
                         ClockSkew = TimeSpan.FromMinutes(5)
@@ -90,10 +116,12 @@ namespace Aethera.Dependencies
             return services;
         }
 
-        public static IServiceCollection AddSwaggerWithJwt(this IServiceCollection services)
+        public static IServiceCollection AddSwaggerWithJwt(this IServiceCollection services, IConfiguration config)
         {
             services.AddSwaggerGen(c =>
             {
+               
+
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = "JWT Authorization header using the Bearer scheme. Example: 'Bearer {token}'",
@@ -102,6 +130,8 @@ namespace Aethera.Dependencies
                     Type = SecuritySchemeType.ApiKey,
                     Scheme = "Bearer"
                 });
+
+                var scope = config["AzureEntraExternalID-SwaggerScope"];
 
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
@@ -114,7 +144,7 @@ namespace Aethera.Dependencies
                                 Id = "Bearer"
                             }
                         },
-                        new string[] { "api://297ac375-6408-43f6-bac5-e72e2c44b313/Aethera_access_api" }
+                        new string[] { scope }
                     }
                 });
             });
@@ -123,6 +153,5 @@ namespace Aethera.Dependencies
         }
     }
 }
-
 
 

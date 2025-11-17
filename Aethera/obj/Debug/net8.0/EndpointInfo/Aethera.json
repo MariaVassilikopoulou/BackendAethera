@@ -330,7 +330,7 @@
   "security": [
     {
       "Bearer": [
-        "api://297ac375-6408-43f6-bac5-e72e2c44b313/Aethera_access_api"
+        "\"api://297ac375-6408-43f6-bac5-e72e2c44b313/Aethera_access_api"
       ]
     }
   ]
