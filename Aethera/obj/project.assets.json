@@ -5239,6 +5239,7 @@
   "projectFileDependencyGroups": {
     "net8.0": [
       "AutoMapper >= 14.0.0",
+      "Azure.Core >= 1.49.0",
       "Azure.Extensions.AspNetCore.Configuration.Secrets >= 1.4.0",
       "Azure.Identity >= 1.17.0",
       "Azure.Security.KeyVault.Secrets >= 4.8.0",
@@ -5301,6 +5302,10 @@
           "AutoMapper": {
             "target": "Package",
             "version": "[14.0.0, )"
+          },
+          "Azure.Core": {
+            "target": "Package",
+            "version": "[1.49.0, )"
           },
           "Azure.Extensions.AspNetCore.Configuration.Secrets": {
             "target": "Package",
