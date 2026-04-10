@@ -1,4 +1,5 @@
 ﻿using Aethera.Dtos;
+using Aethera.Dtos.Order;
 using Aethera.Dtos.Product;
 using Aethera.Models;
 using AutoMapper;
@@ -14,7 +15,7 @@ namespace Aethera.MappingProfiles
                 
                 CreateMap<CreateProductDto, Product>()
                     .ForMember(dest => dest.Id, opt => opt.MapFrom(_ => Guid.NewGuid().ToString()))
-                    .ForMember(dest => dest.Category, opt => opt.MapFrom(_ => "perfumes"));
+                    .ForMember(dest => dest.Category, opt => opt.MapFrom(src => string.IsNullOrEmpty(src.Category) ? "perfumes" : src.Category));
 
                
                 CreateMap<UpdateProductDto, Product>();
@@ -30,6 +31,10 @@ namespace Aethera.MappingProfiles
                 .ForMember(dest => dest.UserId, opt => opt.Ignore())
                 .ReverseMap();
 
+            CreateMap<ShippingAddressDto, ShippingAddress>().ReverseMap();
+            CreateMap<Order, OrderDto>()
+                .ForMember(dest => dest.TotalPrice, opt => opt.Ignore())
+                .ReverseMap();
         }
     }
     }

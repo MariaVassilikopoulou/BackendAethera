@@ -8,6 +8,7 @@
         public string DatabaseName { get; set; } = string.Empty;
         public string CartContainerName { get; set; } = string.Empty;
         public string ProductContainerName { get; set; } = string.Empty;
+        public string OrderContainerName { get; set; } = string.Empty;
 
     }
 

@@ -1,4 +1,5 @@
-﻿using Aethera.Settings;
+﻿using Aethera.Services;
+using Aethera.Settings;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Options;
 using System.Text.Json.Serialization.Metadata;
@@ -7,8 +8,8 @@ using System.Text.Json;
 using Aethera.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
-using Microsoft.Extensions.Logging; 
-using Microsoft.IdentityModel.Tokens; 
+using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Aethera.Dependencies
 {
@@ -69,6 +70,14 @@ namespace Aethera.Dependencies
             return services;
         }
 
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+        {
+            services.AddScoped<IPaymentService, StripePaymentService>();
+            services.AddScoped<IEmailService, SendGridEmailService>();
+
+            return services;
+        }
+
 
         public static IServiceCollection AddAuthenticationWithJwt(this IServiceCollection services, IConfiguration config)
         {
@@ -111,7 +120,10 @@ namespace Aethera.Dependencies
                     };
                 });
 
-            services.AddAuthorization();
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminOnly", policy => policy.RequireRole("admin"));
+            });
 
             return services;
         }

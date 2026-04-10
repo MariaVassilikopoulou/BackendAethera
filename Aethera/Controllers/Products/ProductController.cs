@@ -30,14 +30,15 @@ namespace Aethera.Controllers.Products
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(string id)
+        public async Task<IActionResult> GetById(string id, [FromQuery] string partition = "perfumes")
         {
-            var product = await _repository.GetByIdAsync(id, "perfumes");
+            var product = await _repository.GetByIdAsync(id, partition);
             if (product == null) return NotFound();
             return Ok(product);
         }
 
         [HttpPost]
+        [Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> Add([FromBody] CreateProductDto dto)
         {
             var product = _mapper.Map<Product>(dto);
@@ -47,9 +48,10 @@ namespace Aethera.Controllers.Products
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(string id, [FromBody] UpdateProductDto dto)
+        [Authorize(Policy = "AdminOnly")]
+        public async Task<IActionResult> Update(string id, [FromBody] UpdateProductDto dto, [FromQuery] string partition = "perfumes")
         {
-            var existing = await _repository.GetByIdAsync(id, "perfumes");
+            var existing = await _repository.GetByIdAsync(id, partition);
             if (existing == null) return NotFound();
 
             _mapper.Map(dto, existing);
@@ -59,9 +61,10 @@ namespace Aethera.Controllers.Products
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(string id)
+        [Authorize(Policy = "AdminOnly")]
+        public async Task<IActionResult> Delete(string id, [FromQuery] string partition = "perfumes")
         {
-            var deleted = await _repository.DeleteAsync(id, "perfumes");
+            var deleted = await _repository.DeleteAsync(id, partition);
             return deleted ? NoContent() : NotFound();
         }
     }

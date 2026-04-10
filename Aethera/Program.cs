@@ -49,6 +49,7 @@ builder.Services.AddAuthenticationWithJwt(builder.Configuration);
 builder.Services.AddSwaggerWithJwt(builder.Configuration);
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddAutoMapper(typeof(MappingProfiles));
+builder.Services.AddApplicationServices();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend",
@@ -66,6 +67,14 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// Allow Stripe webhook to read the raw request body for signature verification
+app.Use(async (context, next) =>
+{
+    if (context.Request.Path.StartsWithSegments("/api/payment/webhook"))
+        context.Request.EnableBuffering();
+    await next();
+});
 
 app.UseHttpsRedirection();
 
