@@ -62,6 +62,9 @@ builder.Services.AddCors(options =>
 });
 var app = builder.Build();
 
+// CORS must be first so headers are present even on error responses
+app.UseCors("AllowFrontend");
+
 if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
     app.UseSwagger();
@@ -77,9 +80,6 @@ app.Use(async (context, next) =>
 });
 
 app.UseHttpsRedirection();
-
-
-app.UseCors("AllowFrontend");
 
 app.UseAuthentication();
 app.UseAuthorization();
