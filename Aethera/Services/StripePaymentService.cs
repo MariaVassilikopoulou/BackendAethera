@@ -4,9 +4,11 @@ namespace Aethera.Services
 {
     public class StripePaymentService : IPaymentService
     {
+        private readonly string _apiKey;
+
         public StripePaymentService(IConfiguration config)
         {
-            StripeConfiguration.ApiKey = config["Stripe:SecretKey"];
+            _apiKey = config["Stripe:SecretKey"] ?? throw new InvalidOperationException("Stripe:SecretKey is not configured.");
         }
 
         public async Task<string> CreatePaymentIntentAsync(string orderId, decimal amount, string userEmail, string currency = "eur")
@@ -24,7 +26,8 @@ namespace Aethera.Services
                 }
             };
 
-            var service = new PaymentIntentService();
+            var client = new StripeClient(_apiKey);
+            var service = new PaymentIntentService(client);
             var intent = await service.CreateAsync(options);
             return intent.ClientSecret;
         }
