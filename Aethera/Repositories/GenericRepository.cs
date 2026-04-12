@@ -89,9 +89,14 @@ namespace Aethera.Repositories
                 }
             }
 
+            private static readonly CosmosLinqSerializerOptions _linqOptions =
+                new() { PropertyNamingPolicy = CosmosPropertyNamingPolicy.CamelCase };
+
             public async Task<IEnumerable<T>> GetAllAsync()
             {
-                var queryable = _container.GetItemLinqQueryable<T>(allowSynchronousQueryExecution: false);
+                var queryable = _container.GetItemLinqQueryable<T>(
+                    allowSynchronousQueryExecution: false,
+                    linqSerializerOptions: _linqOptions);
 
                 var feedIterator = queryable.ToFeedIterator();
                 var results = new List<T>();
@@ -108,7 +113,9 @@ namespace Aethera.Repositories
             public async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate, string? partitionKey = null)
             {
                 var queryable = _container
-                            .GetItemLinqQueryable<T>(allowSynchronousQueryExecution: false)
+                            .GetItemLinqQueryable<T>(
+                                allowSynchronousQueryExecution: false,
+                                linqSerializerOptions: _linqOptions)
                             .Where(predicate);
 
                 if (!string.IsNullOrEmpty(partitionKey))
