@@ -66,7 +66,7 @@ namespace Aethera.Controllers.Order
         public async Task<IActionResult> GetMyOrders()
         {
             var userId = GetUserId();
-            var orders = await _orderRepository.FindAsync(o => o.UserId == userId, userId);
+            var orders = await _orderRepository.FindAsync(o => o.UserId == userId);
             var result = orders.Select(o =>
             {
                 var dto = _mapper.Map<OrderDto>(o);
