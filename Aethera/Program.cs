@@ -55,7 +55,9 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFrontend",
         policy => policy
             .WithOrigins("http://localhost:3000",
-                         "https://aethera-eight.vercel.app")
+                         "https://aethera-eight.vercel.app",
+                         "https://aetheraaroma.beauty",
+                         "https://www.aetheraaroma.beauty")
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials());
